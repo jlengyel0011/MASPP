@@ -3151,7 +3151,7 @@ def localCorrCoefKnn(data, Count1, Count2, X, Y, radius, T, adaptive=False, weig
             CountT= localWaveTrans(data[:,(0,1)], np.atleast_1d(T))
             #out_T = LmsAnalysis(data[:,(0,1)],CountT,X,Y,np.atleast_1d(T), T=T,Nanalyse=2**9)
             #Wmean_T, Wstd_T, NWmean_T, NWstd_T, Mom_T, Cum_T = out_T
-            WmeanStd_T, Mom_T, Flat_T, Cum_T = LmsAnalysis(data[:,(0,1)],CountT,X,Y,np.atleast_1d(T), T=T,Nanalyse=2**9)
+            WmeanStd_T, Mom_T, Flat_T, Cum_T = LmsAnalysis(data[:,(0,1)],CountT,X,Y,np.atleast_1d(T), T=T,Nanalyse=2**16)
             Wmean_Tloc = WmeanStd_T[0,:,0]
             G = np.nanmean(WmeanStd_T[0,:,0])
             with warnings.catch_warnings():

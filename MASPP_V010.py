@@ -309,7 +309,7 @@ def getoptimblock(datapos, Nanalyse, thresh = 200):
 #
 def bisquarekernel(x):
     '''
-        return bisaquare kernel weigths (1-x**2)**2 ewith -1< x< 1
+        return bisaquare kernel weights (1-x**2)**2 ewith -1< x< 1
         
         
         w=isquarekernel(x)
@@ -319,7 +319,7 @@ def bisquarekernel(x):
             
         Output :            
         
-            w weigths values
+            w weights values
         
      ##
       P.Thiraux, ENS Lyon, June 2022,  stephane.roux@ens-lyon.fr
@@ -633,7 +633,7 @@ def logaverage(x,w):
     ##########################
     logx=np.log(np.abs(x))
     logx[np.abs(x)==0]=np.nan
-    # weigth need to be normalized : done
+    # weight need to be normalized : done
     average=np.nansum(logx*w,axis=0)
     return average
 
@@ -644,7 +644,7 @@ def logaverage2(x,average,w):
     ##########################
     logx=(np.log(np.abs(x))-average)**2
     logx[np.abs(x)==0]=np.nan
-    # weigth need to be normalized : done
+    # weight need to be normalized : done
     average2=np.nansum(logx*w,axis=0)
     
     return average2
@@ -1600,7 +1600,7 @@ def localMomCumConv1d(coefs,lcoefs,L,window='flat', gridsize=1):
     N = coefs.shape[1]
     Nscale = coefs.shape[0]
      
-    # choose the windows (the weigths) for average  
+    # choose the windows (the weights) for average  
     d = np.sqrt(np.linspace(-L, L, 2*L+1)**2)
     if np.char.equal(window,'flat'):
         W=np.ones(2*L+1,)
@@ -1752,7 +1752,7 @@ def localCorrCoefConv1d(Coefs1sig,Coefs2sig,L, window='flat', gridsize=1):
     N  = Coefs1sig.shape[1]
     Nscales=Coefs1sig.shape[0]
     
-    # choose the windows (the weigths) for average  
+    # choose the windows (the weights) for average  
     d = np.sqrt(np.linspace(-L, L, 2*L+1)**2)
     if np.char.equal(window,'flat'):
         W=np.ones(2*L+1,)
@@ -2163,7 +2163,7 @@ def localMomCumConv2d(coefs,lcoefs,L, window='circle',fftplan=[], gridsize=1):
     # size parameters    
     Nscale, N1, N2 = imCoefs.shape
      
-    # choose the windows (the weigths) for average  
+    # choose the windows (the weights) for average  
     y, x = np.ogrid[-L:L+1, -L:L+1]     
     d = np.sqrt( x**2 + y**2 ) /L
     if np.char.equal(window,'square'):
@@ -2342,7 +2342,7 @@ def localCorrCoefConv2d(Coefs1sig,Coefs2sig,L, window='flat',fftplan=[], gridsiz
     # size parameters       
     Nscale, N1, N2 = imCoefs1.shape
      
-    # choose the windows (the weigths) for average  
+    # choose the windows (the weights) for average  
     if np.char.equal(window,'flat'):
         W = np.ones((2*L+1,2*L+1))
         y, x = np.ogrid[-L:L+1, -L:L+1]     
@@ -2533,7 +2533,7 @@ def computeGridValue(tree,Count,IndexNear,index2,mygrid, radius, Tloc, weighting
     tmp_fixed2=[ Count[IndexNear[neighbors_i_fixed[igrid]],:] for igrid in range (len(index2))]
     # number of  coef
     ltmp=np.array([ len(dist_ie_fixed[igrid]) for igrid in range (len(index2))])
-    # the weigth
+    # the weight
     Wfinal2=[  weightingfunction(dist_ie_fixed[igrid], Tloc[igrid]) for igrid in range (len(index2))]
     # compute D0 and moments
     D0 = np.array([(np.nansum( Wfinal2[igrid]*np.abs(tmp_fixed2[igrid])**-1  , axis=0)) for igrid in range(len(index2))])
@@ -2701,7 +2701,7 @@ def LmsAnalysis(data,Count,X,Y,radius, T, adaptive = False, weights = 'flat',  N
     if isinstance(weights, str):
         if weights == 'flat':
             weightingfunction = partial(geographicalWeight,func = flatWindow)
-            print('No weigth')
+            print('No weight')
         elif weights == 'Epanechnikov':
             weightingfunction = partial(geographicalWeight,func = EpanechnikovWindow)
         elif weights == 'bisquare':
@@ -3012,7 +3012,7 @@ def computeGridValuebivar(tree, Count1, Count2, IndexNear, index, mygrid, radius
 
     # number of  coef
     #ltmp=np.array([ len(dist_ie_fixed[igrid]) for igrid in range (len(index))])
-    # the weigth
+    # the weight
     Wfinal=[  weightingfunction(dist_ie_fixed[igrid], Tloc[igrid]) for igrid in range (len(index))]
    
     m01=np.array([ np.nansum(tmp_fixed1[igrid] * Wfinal[igrid], axis=0) for igrid in range(len(index))])
@@ -3131,7 +3131,7 @@ def localCorrCoefKnn(data, Count1, Count2, X, Y, radius, T, adaptive=False, weig
     if isinstance(weights, str):
         if weights == 'flat':
             weightingfunction = partial(geographicalWeight,func = flatWindow)
-            print('No weigth')
+            print('No weight')
         elif weights == 'Epanechnikov':
             weightingfunction = partial(geographicalWeight,func = EpanechnikovWindow)
         elif weights == 'bisquare':
